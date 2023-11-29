@@ -56,10 +56,9 @@ jobs:
 
       - name: Build tag & latest release
         run: |
-          docker buildx build --compress --platform ${{ steps.prepare.outputs.docker_platforms }} \
+          docker buildx build --compress --platform linux/amd64 \
           --output "type=docker,dest=- . > v2ray.tar" \
           --tag "${{ steps.prepare.outputs.docker_image }}:${{ steps.prepare.outputs.docker_tag }}" \
-          --tag "${{ steps.prepare.outputs.docker_image }}:latest" \
           --build-arg TAG=${{ steps.prepare.outputs.docker_tag }} \
           --file Dockerfile .
       - name: Upload bin directory

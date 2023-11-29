@@ -56,9 +56,14 @@ jobs:
 
       - name: Build tag & latest release
         run: |
-          docker buildx build --platform ${{ steps.prepare.outputs.docker_platforms }} \
-          --output "type=image,push=${{ steps.prepare.outputs.docker_is_push }}" \
+          docker buildx build --compress --platform ${{ steps.prepare.outputs.docker_platforms }} \
+          --output "type=docker,dest=- . > /tmp/v2ray.tar" \
           --tag "${{ steps.prepare.outputs.docker_image }}:${{ steps.prepare.outputs.docker_tag }}" \
           --tag "${{ steps.prepare.outputs.docker_image }}:latest" \
           --build-arg TAG=${{ steps.prepare.outputs.docker_tag }} \
           --file Dockerfile .
+      - name: Upload bin directory
+        uses: actions/upload-artifact@main
+        with:
+          name: v2ray.tar
+          path: /tmp/v2ray.tar

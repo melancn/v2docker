@@ -64,5 +64,5 @@ jobs:
       - name: Upload bin directory
         uses: actions/upload-artifact@main
         with:
-          name: v2ray.zip
+          name: v2ray-${{ steps.tag.outputs.tag }}.zip
           path: /tmp/v2ray.tar

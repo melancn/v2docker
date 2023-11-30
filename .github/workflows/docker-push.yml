@@ -60,7 +60,8 @@ jobs:
           --output "type=docker,dest=-" \
           --tag "${{ steps.prepare.outputs.docker_image }}:${{ steps.prepare.outputs.docker_tag }}" \
           --build-arg TAG=${{ steps.prepare.outputs.docker_tag }} \
-          --file Dockerfile . > v2ray.tar
+          --file Dockerfile . > /tmp/v2ray.tar
+          cd /tmp
       - name: Upload bin directory
         uses: actions/upload-artifact@main
         with:

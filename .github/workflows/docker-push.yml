@@ -57,10 +57,10 @@ jobs:
       - name: Build tag & latest release
         run: |
           docker buildx build --compress --platform linux/amd64 \
-          --output "type=docker,dest=- . > v2ray.tar" \
+          --output "type=docker,dest=-" \
           --tag "${{ steps.prepare.outputs.docker_image }}:${{ steps.prepare.outputs.docker_tag }}" \
           --build-arg TAG=${{ steps.prepare.outputs.docker_tag }} \
-          --file Dockerfile .
+          --file Dockerfile . > v2ray.tar
       - name: Upload bin directory
         uses: actions/upload-artifact@main
         with:
